@@ -30,20 +30,20 @@ param(
     [PSCredential]$Credential
 )
 
-# --- Metadata handling ---
+# --- Metadata handling (exit early, before any other operations) ---
 if ($Help) {
     Get-Help -Detailed $MyInvocation.MyCommand.Path
-    exit
+    exit 0
 }
 
 if ($Version) {
     "check-shareinfo version 1.0.0"
-    exit
+    exit 0
 }
 
 if ($Desc) {
     "Retrieves filesystem shares from a remote server and displays NTFS permissions."
-    exit
+    exit 0
 }
 
 # Prompt for credentials if server specified but credentials not supplied

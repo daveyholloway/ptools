@@ -28,7 +28,7 @@ if ($Version) {
 }
 
 if ($Desc) {
-    "Adds the current ptools folder to the user's PATH."
+    "Adds the current ptools folder to the user's PATH - run once after cloning the ptools repository."
     exit
 }
 

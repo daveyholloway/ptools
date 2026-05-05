@@ -16,6 +16,49 @@ param(
     [switch]$Desc
 )
 
+function Write-Rainbow {
+    param(
+        [Parameter(Mandatory)]
+        [string]$Text,
+
+        [ValidateSet("Left", "Right", "Center")]
+        [string]$Justify = "Left",
+
+        [int]$Width = $Host.UI.RawUI.WindowSize.Width
+
+    )
+
+    $colors = @(
+        'Red',
+        'Yellow',
+        'Green',
+        'Cyan',
+        'Blue',
+        'Magenta'
+    )
+
+    # Calculate padding based on justification
+    $padding = switch ($Justify) {
+        "Left"   { 0 }
+        "Right"  { $Width - $Text.Length }
+        "Center" { [math]::Floor(($Width - $Text.Length) / 2) }
+    }
+
+    # Print padding first (invisible, no colour)
+    if ($padding -gt 0) {
+        Write-Host (" " * $padding) -NoNewline
+    }
+
+    # Print rainbow characters
+    for ($i = 0; $i -lt $Text.Length; $i++) {
+        $color = $colors[$i % $colors.Count]
+        Write-Host $Text[$i] -NoNewline -ForegroundColor $color
+    }
+
+    Write-Host
+}
+
+
 if ($Help) {
     Get-Help -Detailed $MyInvocation.MyCommand.Path
     exit
@@ -35,6 +78,10 @@ $folder = Split-Path -Parent $MyInvocation.MyCommand.Path
 $scripts = Get-ChildItem -Path $folder -Filter *.ps1 | Where-Object {
     $_.Name -ne "ptools.ps1"
 }
+
+Clear-Host
+Write-Rainbow "Daves PowerShell Toolkit" Center
+Write-Host
 
 Write-Host "Available tools:`n" -ForegroundColor Cyan
 

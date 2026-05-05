@@ -31,20 +31,20 @@ param(
     [PSCredential]$Credential = $null
 )
 
-# --- Metadata handling ---
+# --- Metadata handling (exit early, before any other operations) ---
 if ($Help) {
     Get-Help -Detailed $MyInvocation.MyCommand.Path
-    exit
+    exit 0
 }
 
 if ($Version) {
     "check-updates version 1.0.0"
-    exit
+    exit 0
 }
 
 if ($Desc) {
     "Checks for pending Windows updates on remote servers."
-    exit
+    exit 0
 }
 
 # Prompt for credentials if servers specified but credentials not supplied
