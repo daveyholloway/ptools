@@ -121,7 +121,6 @@ foreach ($Server in $ServerList) {
     }
     
 catch {
-    Write-Output "$Server : unable to connect"
-    Write-Output "Error: $($_.Exception.Message)"
+    Write-Output "$Server : unable to connect automatically"
     }
 }
